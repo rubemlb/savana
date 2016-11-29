@@ -823,23 +823,39 @@ jQuery(window).load(function(a,b,c){
 
 
 $(function () {
-	$('#date_check_in').datetimepicker({
-			icons: {
-				next: "form_next_icon",
-				previous: "form_previous_icon",
-			},
-			format: 'D MMMM'
-	});	
-	$('#date_check_out').datetimepicker({
-			icons: {
-				next: "form_next_icon",
-				previous: "form_previous_icon",
-			},
-			format: 'D MMMM'
-		});
-	});
+  
+  var dateToday = new Date();
+  dateToday.setHours(0, 0, 0, 0);
+  $('#arrival_date').datetimepicker({
+    icons: {
+      next: "form_next_icon",
+      previous: "form_previous_icon",
+    },
+    format: 'D MMMM',
+  }); 
+  $("#arrival_date").on("dp.change", function (e) {
+    $('#departure_date').data("DateTimePicker").minDate(e.date);
+    $('#arrival_date').data("DateTimePicker").minDate(dateToday);
+  });
+  $('#departure_date').datetimepicker({
+    icons: {
+      next: "form_next_icon",
+      previous: "form_previous_icon",
+    },
+    format: 'D MMMM',
+  });
+  $("#departure_date").on("dp.change", function (e) {
+    if(document.getElementById("arrival_date").value != ""){
+      $('#departure_date').data("DateTimePicker").minDate($("#arrival_date").data("DateTimePicker").date());
+    }
+    else{
+      $('#departure_date').data("DateTimePicker").minDate(dateToday);
+      $('#arrival_date').data("DateTimePicker").minDate(e.date);
+    }
+  });
 });
 
+});
 //END============================= JQUERY TO PERFORM ON WINDOW LOAD =======================================
 
 ;
