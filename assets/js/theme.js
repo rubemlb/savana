@@ -821,10 +821,10 @@ jQuery(window).load(function(a,b,c){
 
   //END================ LIGHTBOX ===================================================
 
-
 $(function () {
   
   var dateToday = new Date();
+  var d = new Date();
   dateToday.setHours(0, 0, 0, 0);
   $('#arrival_date').datetimepicker({
     icons: {
@@ -834,7 +834,8 @@ $(function () {
     format: 'D MMMM',
   }); 
   $("#arrival_date").on("dp.change", function (e) {
-    $('#departure_date').data("DateTimePicker").minDate(e.date);
+    d = $("#arrival_date").data("DateTimePicker").date().add(1, 'day');
+    $('#departure_date').data("DateTimePicker").minDate(d);
     $('#arrival_date').data("DateTimePicker").minDate(dateToday);
   });
   $('#departure_date').datetimepicker({
@@ -846,7 +847,8 @@ $(function () {
   });
   $("#departure_date").on("dp.change", function (e) {
     if(document.getElementById("arrival_date").value != ""){
-      $('#departure_date').data("DateTimePicker").minDate($("#arrival_date").data("DateTimePicker").date());
+      d = $("#arrival_date").data("DateTimePicker").date().add(1, 'day');
+      $('#departure_date').data("DateTimePicker").minDate(d);
     }
     else{
       $('#departure_date').data("DateTimePicker").minDate(dateToday);
@@ -856,6 +858,7 @@ $(function () {
 });
 
 });
+
 //END============================= JQUERY TO PERFORM ON WINDOW LOAD =======================================
 
 ;
