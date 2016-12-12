@@ -149,7 +149,11 @@ EOT;
 
                     // if the message have been sent, redirect to relevant page
                     if ($sent == 2) {
-                        header('Location: booking_success.html');
+                        /*header('Location: booking_success.html');*/
+                        echo "<script type='text/javascript'>
+                               alert('O seu pedido de reserva foi efectuado com sucesso!');
+                               location='booking_sucess.html';
+                          </script>";
                         exit;
                     }
 
@@ -174,9 +178,8 @@ EOT;
         }else{
             echo "<script type='text/javascript'>
                        alert('A sua reserva não pude ser feita!');
-                       location='index.html';
+                       location='error.php';
                   </script>";
         }
-    }
     }
 ?>
